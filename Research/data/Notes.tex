@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{dirtytalk}
+\usepackage{flexisym}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[noend]{algpseudocode}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+%\DeclareMathOperator*{\argmax}{arg\,max}
+
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+%If you want to title your bold things something different just make another thing exactly like this but replace "problem" with the name of the thing you want, like theorem or lemma or whatever
+ 
+\begin{document}
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+%Good resources for looking up how to do stuff:
+%Binary operators: http://www.access2science.com/latex/Binary.html
+%General help: http://en.wikibooks.org/wiki/LaTeX/Mathematics
+%Or just google stuff
+ 
+\title{Heuristic Algorithm Notes}
+\author{Jonathan Pearce}
+\maketitle
+$ $ \\
+Key: \\
+Word Length = k \\
+Sequence Length = L \\
+Number of words = n \\
+Optimal Word = A word comprised of only the most likely nucleotide at each position \\
+Negative Sequence = A sampled sequenced that will not be matched to an element in the word set
+
+\section{Algorithm 1: Random Sampling}
+
+\begin{algorithm}
+\caption{Title}\label{euclid}
+\begin{algorithmic}[1]
+\State $wordSet \leftarrow \text{best } n \text{ optimal words}$
+\While{$\text{within time limit}$}
+\For{$i \text{ in } (0,1,...,n-1)$}
+\State $w_i = eval(wordSet \setminus i)$
+\EndFor
+\State $\text{remove word i with probability} \propto w_i$
+\State $samples \leftarrow x \text{ negative sequence samples}$
+\State $word \leftarrow \text{ most frequently occuring word in } samples$
+\State $Add \:\: word \text{ to } wordSet$
+\EndWhile
+\State $\text{return wordSet}$
+\end{algorithmic}
+\end{algorithm}
+
+General Idea: Begin with an easy to find and somewhat successful set of n words. Upon each iteration select one word from the set to remove with probability inversely proportional to how much that word contributes to the set probability (i.e. a word contributes a lot to the set score, remove with low probability and vice versa). Collect x negative sequences and process, find the word and index pair that occurs most often, add this word to the word set.    
+
+
+\pagebreak
+
+\section{Algorithm 2: Linear Random Sampling}
+
+\begin{algorithm}
+\caption{Title}\label{euclid}
+\begin{algorithmic}[1]
+\State $wordSet \leftarrow \emptyset$
+\For{$i \text{ in } (0,1,...,n-1)$}
+\State $samples \leftarrow x \text{ negative sequence samples}$
+\State $word \leftarrow \text{ most frequently occuring word in } samples$
+\State $Add \:\: word \text{ to } wordSet$
+\EndFor
+\State $\text{return wordSet}$
+\end{algorithmic}
+\end{algorithm}
+
+General Idea: This algorithm was designed to speed up and improve Algorithm 1. Start with empty word set, Collect x negative sequences and process, find the word and index pair that occurs most often, add this word to the word set. Repeat n times.
+
+\pagebreak
+
+\section{Algorithm 3: Dynamic Programming}
+
+\begin{algorithm}
+\caption{Title}\label{euclid}
+\begin{algorithmic}[1]
+\State $dp \leftarrow [L-k][n]$
+\For{$i \text{ in } (0,1,...,n-1)$}
+\State $dp[0,i] = opt(0,i) $
+\EndFor
+
+\For{$i \text{ in } (1,2,...,L-k-1)$}
+\For{$j \text{ in } (0,1,...,n-1)$}
+\State $maxSet \leftarrow 0$
+\State $maxProb \leftarrow 0$
+\For{$k \text{ in } (0,1,...,j)$}
+\State $temp = dp(i-1,k)+opt(i,j-k)$
+\If {$probability(temp) > maxProb$}
+\State $maxSet = temp$
+\State $maxProb = probability(temp)$
+\EndIf
+\EndFor
+\State $dp[i,j] = maxSet$
+\EndFor
+\EndFor
+\State $\text{return } dp[L-k][n]$
+
+
+\end{algorithmic}
+\end{algorithm}
+
+General Idea: Solve for best n words at each position in sequence. Proceed to fill dynamic programming table according to recurrence relation,
+
+$$dp[i,j] = \begin{cases} opt(i,j), & \mbox{if } i = 0 \\ \underset{1 \leq k \leq j}{\operatorname{max}} \:\:  dp[i-1][k] + opt[i,j-k] , & \mbox{if } i \neq 0\end{cases}$$
+\end{document}

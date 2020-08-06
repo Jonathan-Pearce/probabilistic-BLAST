@@ -1,0 +1,46 @@
+Think about DNF proof
+generate test set!
+make sure OG algorithm is working
+
+at some point:
+Disable all heuristisc on DP so we can check its still correct
+
+
+Wednesday:
+
+Afternoon - Dynammic Programing speed up
+-ONLY FIND words for first 20 indexes!!
+-Make sequence global in scan_words
+-array for Dynammic P
+
+Week
+Test set
+code review and clean!!
+
+DONE WITH BUILDUP!!
+
+FRIDAY:
+clean up combinatorial words
+Plan next week
+
+
+
+NOTES FOR BUILDUP/NEWORD:
+-keep track of words at each index -> will make wordset check faster
+-process words by sequene index not sequence by sequence (few issues here)
+
+
+DP and Buildup are virtually done
+-run DP with no word cap
+
+NEXT WEEK:
+Clean up kWindowProb
+-allow us to get one word at a time!
+-optimize combinatoric section a little more (not priority)
+-->This should make naive super fast
+
+-Get original heurisitc code working again (don't worry about speed up, maybe just think about how to remove word)
+
+-1 more idea - build up with extension where you limit the locations where words can be sampled from!?
+
+-Generate Testset and begin evaluating!
