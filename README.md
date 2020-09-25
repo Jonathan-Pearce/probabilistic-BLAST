@@ -1,2 +1,7 @@
-# probabilistic-BLAST
-Local Sequence Alignment Tool for Probabilistic DNA databases
+# Local Sequence Alignment Tool for Probabilistic DNA databases
+
+## Jonathan Pearce, McGill University
+
+### Comp 561 Computational Biology Methods and Research, Final Project (Fall 2018)
+
+One of the most well known and highly cited tools in Computational Biology and Bioinformatics is BLAST, introduced in 1990 by Altschul et al. Blast is a local sequence alignment tool that can used to find near optimal alignments of small query sequences in large databases of genomes. Since its original publication there have been plenty of improvements and adaptations of BLAST used for specific scenarios of sequence alignment, however not all scenarios that call for a BLAST derived tool have been addressed. BLAST and its variations are designed to work with databases of deterministic sequences, but there are some biological applications where it is more advantageous to utilize a probabilistic sequence such as computationally inferred ancestral sequences. Therefore a variation of BLAST that works with probabilistic genomes could prove to be very helpful. We present a probabilistic adaptation of BLAST for nucleotide local alignment, P-BLASTn. This algorithm combines greedy and probabilistic selection for local alignments in order to reduce the scoring and ranking complexity of alignments and to make results more comparable to those found in deterministic versions of BLAST. A sample of chromosome 22 from the predicted BoreoEutherian ancestor sequence was used to test and evaluate the algorithm. Correct local alignment position in the probabilistic genome was achieved over 90% of the time with sampled query sequences of up to 20% unexpected noise from substitutions, insertions and deletions.
